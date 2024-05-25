@@ -28,12 +28,15 @@ class AlienInvasion:
         while True:
             self._check_event()
             self.ship.update()
-            self.bullets.update()
-            # 删除超出窗口范围的子弹
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+            self._update_bullets()
             self._update_screen()
+
+    def _update_bullets(self):
+        """更新子弹位置并删除消失的子弹"""
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
     def _update_screen(self):
         """更新屏幕上的图像并更新到新屏幕"""
