@@ -2,9 +2,10 @@ import sys
 
 import pygame
 
+from alien import Alien
+from bullet import Bullet
 from settings import Settings
 from ship import Ship
-from bullet import Bullet
 
 
 class AlienInvasion:
@@ -22,6 +23,9 @@ class AlienInvasion:
         # self.settings.screen_height = self.screen.get_rect().height
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
     def run_game(self):
         """开始游戏的主循环"""
@@ -44,6 +48,7 @@ class AlienInvasion:
         self.ship.blit_me()
         for bullet in self.bullets:
             bullet.draw_bullet()
+        self.aliens.draw(self.screen)
         # 让最近绘制的屏幕可见
         pygame.display.flip()
 
@@ -90,6 +95,11 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullet_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _create_fleet(self):
+        """创建外星人群"""
+        new_alien = Alien(self)
+        self.aliens.add(new_alien)
 
 
 if __name__ == "__main__":
