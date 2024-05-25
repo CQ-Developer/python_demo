@@ -24,7 +24,6 @@ class AlienInvasion:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
-
         self._create_fleet()
 
     def run_game(self):
@@ -97,9 +96,35 @@ class AlienInvasion:
             self.bullets.add(new_bullet)
 
     def _create_fleet(self):
-        """创建外星人群"""
-        new_alien = Alien(self)
-        self.aliens.add(new_alien)
+        """
+        创建外星人群：
+        创建一个外星人并计算一行可容纳多少个外星人
+        外形的间距为外星人的宽度
+        """
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        # 计算一行可以放置多少个外星人
+        available_space_x = self.settings.screen_width - (alien_width << 1)
+        number_aliens_x = available_space_x // (alien_width << 1)
+        # 计算可以放置多少行
+        available_space_y = self.settings.screen_height - (3 * alien_height) - self.ship.rect.height
+        number_rows = available_space_y // (alien_height << 1)
+        # 创建外星人
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row_number)
+
+    def _create_alien(self, alien_number, row_number):
+        """创建一个外星人并将其加入当前行"""
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        # 设置外星人的x轴位置
+        alien.x = alien_width + ((alien_number * alien_width) << 1)
+        alien.rect.x = alien.x
+        # 设置外星人的y轴位置
+        alien.rect.y = alien.rect.height + ((alien.rect.height * row_number) << 1)
+        # 将外星人添加到组中
+        self.aliens.add(alien)
 
 
 if __name__ == "__main__":
