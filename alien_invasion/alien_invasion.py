@@ -84,7 +84,7 @@ class AlienInvasion:
             self.ship.moving_down = True
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
-        elif event.key == pygame.K_q:
+        elif event.key == pygame.K_ESCAPE:
             sys.exit()
         else:
             print(event.key)
