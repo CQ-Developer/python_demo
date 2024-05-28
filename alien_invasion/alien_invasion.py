@@ -34,9 +34,10 @@ class AlienInvasion:
         """开始游戏的主循环"""
         while True:
             self._check_event()
-            self.ship.update()
-            self._update_bullets()
-            self._update_alien()
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_alien()
             self._update_screen()
 
     def _update_bullets(self):
@@ -71,12 +72,15 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """响应飞船被外星人撞到"""
-        self.stats.ship_left -= 1
-        self.aliens.empty()
-        self.bullets.empty()
-        self._create_fleet()
-        self.ship.center_ship()
-        sleep(1)
+        if self.stats.ship_left > 0:
+            self.stats.ship_left -= 1
+            self.aliens.empty()
+            self.bullets.empty()
+            self._create_fleet()
+            self.ship.center_ship()
+            sleep(1)
+        else:
+            self.stats.game_active = False
 
     def _check_alien_bottom(self):
         """检查是否有外星人到达屏幕底部"""
