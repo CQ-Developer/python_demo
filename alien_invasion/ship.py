@@ -44,3 +44,8 @@ class Ship:
         # 更新飞船位置
         self.rect.x = self.x
         self.rect.y = self.y
+
+    def center_ship(self):
+        """让飞创在窗口底部剧中"""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
