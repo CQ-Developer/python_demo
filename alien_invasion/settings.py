@@ -17,5 +17,5 @@ class Settings:
         self.bullet_allowed = 3
         # 外星人
         self.alien_speed = 0.3
-        self.fleet_drop_speed = 5
+        self.fleet_drop_speed = 50
         self.fleet_direction = 1
