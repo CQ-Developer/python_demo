@@ -137,7 +137,12 @@ class AlienInvasion:
     def _check_play_button(self, mouse_pos):
         """玩家点击Play按钮时开始游戏"""
         button_click = self.play_button.rect.collidepoint(mouse_pos)
-        if button_click and not self.stats.game_active:
+        if button_click:
+            self._start_game()
+
+    def _start_game(self):
+        """如果游戏不处于活跃状态，那么启动游戏"""
+        if not self.stats.game_active:
             # 重置游戏统计信息
             self.stats.reset_stats()
             self.stats.game_active = True
@@ -173,6 +178,8 @@ class AlienInvasion:
             self.ship.moving_down = True
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+        elif event.key == pygame.K_p:
+            self._start_game()
         elif event.key == pygame.K_ESCAPE:
             sys.exit()
         else:
