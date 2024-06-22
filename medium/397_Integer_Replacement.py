@@ -1,5 +1,8 @@
 class Solution:
     def integerReplacement(self, n: int) -> int:
+        """
+        https://leetcode.cn/problems/integer-replacement/description/
+        """
         ans: int = 0
         while n > 1:
             if n & 1:
