@@ -12,15 +12,16 @@ class Solution:
             return False
         n = len(nums)
         m = s >> 1
-        dp = [[False for _ in range(m + 1)] for _ in range(n)]
+        dp = [False for _ in range(m + 1)]
+        dp[0] = True
         if nums[0] <= m:
-            dp[0][nums[0]] = True
+            dp[nums[0]] = True
         for i in range(1, n):
-            for j in range(1, m + 1):
-                dp[i][j] = dp[i - 1][j] or j == nums[i] or (j > nums[i] and dp[i - 1][j - nums[i]])
-            if dp[i][m]:
+            for j in range(m, -1, -1):
+                dp[j] = dp[j] or (j >= nums[i] and dp[j - nums[i]])
+            if dp[m]:
                 return True
-        return dp[n - 1][m]
+        return dp[m]
 
 
 if __name__ == '__main__':
