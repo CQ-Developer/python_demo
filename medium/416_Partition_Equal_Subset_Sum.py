@@ -12,7 +12,7 @@ class Solution:
             return False
         n = len(nums)
         m = s >> 1
-        dp = [[False] * (m + 1)] * n
+        dp = [[False for _ in range(m + 1)] for _ in range(n)]
         if nums[0] <= m:
             dp[0][nums[0]] = True
         for i in range(1, n):
